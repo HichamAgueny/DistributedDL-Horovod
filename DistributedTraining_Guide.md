@@ -25,7 +25,7 @@ computationally expensive and time-consuming and often constrained by:
   sizes, thus affecting both performance and convergence.
 
 To address these challenges, the use of distributed training frameworks
-optimized for large **High-Performance Computing (HPC)** systems powered
+optimized for large **high-performance computing (HPC)** systems powered
 by Graphics Processing Unit (GPU) accelerators becomes essential.
 
 Over the past decade, GPUs have become the dominant hardware choice for
@@ -33,31 +33,31 @@ accelerating deep learning (DL) applications, as evidenced by a recent
 survey on machine learning (ML) hardware architectures \[Ben-Nun2019\].
 In this survey \[Ben-Num2019\], among the 252 papers reviewed, 159
 disclosed their hardware setups, revealing a clear shift toward
-GPU-based computing as shown in **Fig. 1a**. meanwhile, multi-node
-parallelism has seen rapid growth as illustrated in **Fig. 1b**. In the
-beginning of 2015, distributed-memory architectures with GPU
+GPU-based computing as shown in **Fig. 1(a)**. meanwhile, multi-node
+parallelism has seen rapid growth as illustrated in **Fig. 1(b)**. In
+the beginning of 2015, distributed-memory architectures with GPU
 accelerators emerged as the standard for scalable ML workloads,
 solidifying their role as the default option across all levels of
 deployment.
 
-![](./media/media/image1.emf){width="3.2819444444444446in"
-height="2.4305555555555554in"}![](./media/media/image2.emf){width="3.2875in"
+![](media/image1.emf){width="3.2819444444444446in"
+height="2.4305555555555554in"}![](media/image2.emf){width="3.2875in"
 height="2.44375in"}
 
 ***Fig. 1**: From \[Ben-Num2019\] Reported experiments per year
 categorized by **(a)** Hardware architectures and **(b)** memory
 architecture (i.e. shared vs distributed).*
 
-The despite their advantage, multi-GPU scaling of training across
-multiple nodes introduces significant challenges--- particularly
-communication overhead resulted from inter-node data transfer during
-training. Here, effective scaling of DL workload requires optimized
-strategies to mitigate these additional overheads.
+Despite their advantage, multi-GPU scaling of training across multiple
+nodes introduces significant challenges--- particularly communication
+overhead resulted from inter-node data transfer during training. Here,
+effective scaling of DL workload requires optimized strategies to
+mitigate these additional overheads.
 
 **Distributed DNN Training: Parallelism Schemes**
 
 Distributed DNN training can be categorized as model parallelism and
-data parallelism (see e.g. \[Ben-Num2019\]) and their schematic
+data parallelism (see e.g. \[Ben-Num2019\]); their schematic
 representation is depcited in **Fig. 2**. In model parallelism, the
 target model is partitioned into multiple pieces, and each partition is
 assigned to each worker for training as illustrated in **Fig. 2(a)**.
@@ -67,8 +67,8 @@ the training dataset as presented in **Fig. 2(b)**. This is similar to
 training on a single worker (cf. **Fig. 2(c)**), but each worker
 operates on different set of data.
 
-![](./media/media/image3.emf){width="6.3217202537182855in"
-height="3.4054910323709535in"}
+![](media/image3.emf){width="6.331136264216973in"
+height="3.1049628171478565in"}
 
 ***Fig. 2**: Parallelism schemes: (a) Model parallelism and (b) Data
 parallelism. (c) refers to a sequential scheme*
@@ -156,7 +156,7 @@ server. With more workers, parameter servers become bottlenecks, thus
 leading to degraded efficiency. This limitation results in poor
 scalability for large-scale deployments.
 
-![](./media/media/image4.emf){width="3.177719816272966in"
+![](media/image4.emf){width="3.177719816272966in"
 height="3.2729494750656167in"}
 
 ***Fig. 3**. Adapted from \[Li2014,Teo2007\]. Workflow of Distributed
@@ -189,9 +189,9 @@ architecture operates through the following basic workflow:
     - *No* weight exchange occurs between workers---only gradients (or
       subgradients) are shared.
 
-![](./media/media/image5.emf){width="3.1645702099737534in"
+![](media/image5.emf){width="3.1645702099737534in"
 height="2.71077646544182in"}
-![](./media/media/image6.emf){width="1.6530304024496938in"
+![](media/image6.emf){width="1.6530304024496938in"
 height="1.2055402449693788in"}
 
 ***Fig. 4**. Architecture of decentralized distributed training in a
@@ -322,13 +322,13 @@ The core concept of Horovod is inspired by the following points:
 > exceptional communication efficiency by minimizing latency - a
 > critical factor for scalable distributed training.
 
-![](./media/media/image7.emf){width="5.330555555555556in"
+![](media/image7.emf){width="5.330555555555556in"
 height="2.3777777777777778in"}
 
 ***Fig. 5**. Diagram of ring-allreduce algorithm designed for gradient
 synchorinization. Figure taken from \[Sergeev2018\].*
 
-**Implemention of Horovod with TensorFlow**
+**Implementation of Horovod with TensorFlow**
 
 We describe below a step-by-step guide on implementing Horovod with
 TensorFlow \[Sergeev2018, Horovod-doc\]. The implementation is based on
@@ -381,7 +381,7 @@ An increase in learning rate compensates the increased batch size.
 
 **checkpoint.save() when hvd.rank() == 0**
 
-![](./media/media/image8.emf){width="3.9411734470691164in"
+![](media/image8.emf){width="3.9411734470691164in"
 height="1.8299015748031495in"}
 
 ***Fig. 6**. Schematic representation of assigning each local process
@@ -407,7 +407,7 @@ performance metrics from a distributed training job is shown in **Fig.
 7**.
 
 ![A screenshot of a computer Description automatically
-generated](./media/media/image9.png){width="6.5in"
+generated](media/image9.png){width="6.5in"
 height="3.0430555555555556in"}
 
 **Application: MNIST dataset training**
@@ -415,8 +415,9 @@ height="3.0430555555555556in"}
 To better illustrate the step-by-step guide presented in Section.., we
 provide a practical example based on training the MNIST dataset using
 TensorFlow. Here, we convert a single-GPU scenario into a distributed
-training environment spanning multiple GPUs and nodes \[Agueny2024\]. We
-restructure the process of distributed training into three keys steps:
+training environment spanning multiple GPUs and nodes \[Agueny2024\]
+using Horovod. We restructure the process of distributed training into
+three keys steps:
 
 a)  Initialization
 
@@ -478,6 +479,24 @@ Guided by this structure, we proceed with the following implementation:
 
 **gpus\[hvd.local_rank()\],\'GPU')**
 
+(b) **Data Parallelism**
+
+- **Pre-processing**
+
+**\# Single-GPU training**
+
+**def train(learning_rate,batch_size,epochs):**
+
+**.......**
+
+**......**
+
+**\# Prepare dataset**
+
+**\# Here the default is rank=0, size=1**
+
+**(x_train, y_train), (x_test, y_test) = get_dataset()**
+
 **\# Distributed training with Horovod**
 
 **def train_hvd(learning_rate,batch_size,epochs):**
@@ -494,6 +513,34 @@ Guided by this structure, we proceed with the following implementation:
 
 **hvd.rank(), hvd.size())**
 
+**train_data = train_data.shard(num_shards=hvd.size(),**
+
+**index=hvd.rank())**
+
+- **Distributed optimizer**
+
+**\# Single-GPU training**
+
+**.......**
+
+**......**
+
+**\# Initialize DNN model**
+
+**model = get_model()**
+
+**\# Specify the optimizer:**
+
+**optimizer = keras.optimizers.Adadelta(**
+
+**learning_rate)**
+
+**\# Distributed training with Horovod**
+
+**........**
+
+**.......**
+
 **\# Initialize DNN model**
 
 **model = get_model()**
@@ -509,6 +556,28 @@ Guided by this structure, we proceed with the following implementation:
 **\# Use the Horovod Distributed Optimizer**
 
 **optimizer = hvd.DistributedOptimizer(optimizer)**
+
+- **Synchronization** (Broadcasting & Learning-rate scaling)
+
+**\# Single-GPU training**
+
+**.......**
+
+**......**
+
+**\# Compile the model**
+
+**model.compile(optimizer=optimizer,**
+
+**loss=\'categorical_crossentropy\',**
+
+**metrics=\[\'accuracy'\])**
+
+**\# Distributed training with Horovod**
+
+**........**
+
+**.......**
 
 **\# Compile the model**
 
@@ -538,41 +607,89 @@ Guided by this structure, we proceed with the following implementation:
 
 **lr=1e-3\*hvd.size(), warmup_epochs=3, verbose=1)\]**
 
+- The callbacks function ensures consistent initialization of all
+  workers training is started with random weights or restored from a
+  checkpoint.
+
+- Scaling LR from the very beginning results in lower final accuracy.
+  Scaling LR should be applied after e.g. 3 epochs. See \[Goyal2018\]
+  for more details.
+
+(c) **Checkpoints**
+
+**\# Distributed training with Horovod**
+
+**def train_hvd(learning_rate,batch_size,epochs):**
+
+**...**
+
+**.......**
+
+**\# Save checkpoints during training only on worker 0**
+
+**if hvd.rank() == 0:**
+
+**callbacks.append(**
+
+**keras.callbacks.ModelCheckpoint(checkpoint_file,**
+
+**monitor=\'val_loss\',**
+
+**mode=\'min\',**
+
+**save_best_only=True))**
+
+**\# Train the model**
+
+**model.fit(x_train,**
+
+**y_train,**
+
+**batch_size=batch_size,**
+
+**callbacks=callbacks,**
+
+**epochs=epochs,**
+
+**verbose=2,**
+
+**validation_data=(x_test, y_test))**
+
 **\# Single-GPU training**
 
 **def train(learning_rate,batch_size,epochs):**
 
-**.......**
+**......**
 
 **......**
 
-**\# Prepare dataset**
+**#save model checkpoints during training**
 
-**\# Here the default is rank=0, size=1**
+**callbacks = tf.keras.callbacks.ModelCheckpoint(**
 
-**(x_train, y_train), (x_test, y_test) = get_dataset()**
+**checkpoint_file,**
 
-**\# Initialize DNN model**
+**monitor=\'val_loss\',**
 
-**model = get_model()**
+**mode=\'min\',**
 
-**\# Specify the optimizer:**
+**save_best_only=True)**
 
-**optimizer = keras.optimizers.Adadelta(**
+**\# Train the model**
 
-**learning_rate)**
+**model.fit(x_train,**
 
-**\# Compile the model**
+**y_train,**
 
-**model.compile(optimizer=optimizer,**
+**batch_size=batch_size,**
 
-**loss=\'categorical_crossentropy\',**
+**callbacks=callbacks,**
 
-**metrics=\[\'accuracy'\])**
+**epochs=epochs,**
 
-(b) **Data Parallelism**
+**verbose=2,**
 
-(c) **Checkpoints**
+**validation_data=(x_test, y_test))**
 
 **Setup Horovod-TensorFlow on HPE Cray system**
 
@@ -610,6 +727,10 @@ module load cuda/12.1
 eb \--accept-eula-for=CUDA
 Horovod-0.28.1-foss-2022a-CUDA-11.7.0-TensorFlow-2.11.0.eb -r
 
+The option \--accept-eula-for=CUDA automatically accepts NVIDIA\'s
+End-User License Agreement (EULA) when installing CUDA-related software
+through EasyBuild. 
+
 **Step-6. Check the built of Horovod**
 
 horovodrun \--check-build
@@ -646,21 +767,243 @@ Available Tensor Operations:
 
 **Step-8. Verification**
 
-After installation, check the generated module by running the command:
+After installation, we can check the generated module by running the
+command:
 
 \$module avail Horovod
 
-files in \$EBU_USER_PREFIX to confirm success.
+We can also check that files are generated in \$EBU_USER_PREFIX to
+confirm success.
 
 **Setup with EESSI**
 
-**EESSI is \[EESSI-doc, EESSI-GitHub\]**
+EESSI is the European Environment for Scientific Software Installations
+\[EESSI-doc, EESSI-GitHub\]. It is a shared software stack of scientific
+software installations, which supports wide variety of CPU architectures
+e.g. ARM, x86_64 (AMD64, Intel64).
 
-**Setup with Container**
+EESSI can be accessed either through a native installation
+\[EESSI-native\] or via the EESSI container \[EESSI-container\]. In this
+guide, we choose the EESSI container method for its simplicity and
+provide a brief overview of the basic installation steps (see \[EESSI\]
+for more details).
 
-**Cpu architecture**
+**Setup EESSI Container:** Step-by-Step Installation Guide
 
-**Setup in Virtual Environment**
+**Step 1: Clone the Repository**
+
+First, clone the EESSI/software-layer repository and navigate into the
+directory:
+
+git clone https://github.com/EESSI/software-layer.git
+
+cd software-layer
+
+#### **Step 2: Launch the EESSI Container**
+
+#### From the software-layer directory, run the eessi_container.sh script to start a shell session within the EESSI container:
+
+./eessi_container.sh
+
+Press **Enter** when prompted, and you should see output similar to
+this:
+
+Using /tmp/eessi.abc123defg as tmp storage (add \'\--resume
+/tmp/eessi.abc123defg\' to resume where this session ended).
+
+Pulling container image from docker://ghcr.io/eessi/build-node:debian11
+to /tmp/eessi.abc123defg/ghcr.io_eessi_build_node_debian11.sif
+
+Launching container with command:
+
+singularity -q shell \--fusemount container:cvmfs2 cvmfs-config.cern.ch
+/cvmfs/cvmfs-config.cern.ch \--fusemount container:cvmfs2
+software.eessi.io /cvmfs/software.eessi.io
+/tmp/eessi.ymYGaZwoWC/ghcr.io_eessi_build_node_debian11.sif
+
+CernVM-FS: pre-mounted on file descriptor 3
+
+Apptainer\> CernVM-FS: loading Fuse module\... done
+
+CernVM-FS: loading Fuse module\... done
+
+Apptainer\>
+
+#### **Step 3: Activate CernVM-FS**
+
+#### Initialize the Cern Virtual Machine File System (CernVM-FS) environment \[CernVM-doc\]:
+
+source /cvmfs/software.eessi.io/versions/2023.06/init/lmod/bash
+
+#### 
+
+#### **Step 4: Load the Horovod Module**
+
+#### Load the required Horovod module e.g.:
+
+module load Horovod/0.28.1-foss-2022a-CUDA-11.7.0-TensorFlow-2.11.0
+
+To check for available Horovod versions, use:
+
+module spider Horovod
+
+**Optimizing Container Usage and File Access**
+
+Since the container image is now cached in /tmp/eessi.abc123defg,
+subsequent executions will be faster:
+
+./eessi_container.sh \--resume /tmp/eessi.abc123defg
+
+To see all available script options and default values, run:
+
+./eessi_container.sh \--help
+
+#### To access files from the host system inside the container, use the \$SINGULARITY_BIND or \$APPTAINER_BIND environment variables. For example, to mount the current directory (containing test.sh) to /scripts inside the container:
+
+export SINGULARITY_BIND=\${PWD}:/scripts
+
+To prevent redundant downloads across sessions, configure container
+caching by setting:
+
+export SINGULARITY_CACHEDIR=\${PWD}/container_cache_dir
+
+This ensures the eessi_container.sh script reuses previously downloaded
+container images.
+
+**Checking Compilation and Library Support**
+
+Below is a python script to verify the compilation process of Horovod
+and support for libraries like MPI and NCCL \[Agueny-GitHub,
+Horovod-doc\].
+
+**import horovod.tensorflow as hvd**
+
+**hvd.init()**
+
+**if hvd.rocm_built():**
+
+**print(\"\--Horovod is compiled with ROCm support.\")**
+
+**else:**
+
+**print(\"\--Horovod is NOT compiled with ROCm support.\")**
+
+**if hvd.cuda_built():**
+
+**print(\"\--Horovod is compiled with CUDA support.\")**
+
+**else:**
+
+**print(\"\--Horovod is NOT compiled with CUDA support.\")**
+
+**if hvd.mpi_enabled():**
+
+**print(\"\--MPI support is enabled.\")**
+
+**else:**
+
+**print(\"\--MPI support is not enabled.\")**
+
+**if hvd.mpi_built():**
+
+**print(\"\--MPI is compiled with horovod support.\")**
+
+**else:**
+
+**print(\"\--MPI is NOT compiled with horovod support.\")**
+
+**if hvd.nccl_built():**
+
+**print(\"\--Horovod is compiled with NCCL support.\")**
+
+**else:**
+
+**print(\"\--Horovod is NOT compiled with NCCL support.\")**
+
+**if hvd.mpi_threads_supported():**
+
+**print(\"\--MPI multi-threading is supported.\")**
+
+**print(\"You may mix and match Horovod usage with other MPI libraries,
+such as mpi4py.\")**
+
+**else:**
+
+**print(\"\--MPI multi-threading is NOT supported.\")**
+
+**print(\'Hello, rank = %d, local_rank = %d, size = %d, local_size =
+%d\' % (hvd.rank(), hvd.local_rank(), hvd.size(), hvd.local_size()))**
+
+**Running Jobs**
+
+Below is a basic example of a Slurm script (mnist_slurm.sh). The example
+shows a setting to train the MNIST dataset using multiple GPUs across
+multiple nodes. This is a Slurm job script that utilizes Horovod with
+TensorFlow installed with EasyBuild.
+
+#!/bin/bash -e
+
+#SBATCH \--job-name=test_gpu_hvd
+
+#SBATCH \--account=NNxxxxx
+
+#SBATCH \--time=00:30:00
+
+#SBATCH \--partition=to-be-specified
+
+#SBATCH \--nodes=2
+
+#SBATCH \--ntasks-per-node=4
+
+#SBATCH \--gpus=8
+
+#SBATCH \--gpus-per-node=4
+
+#SBATCH -o %x-%j.out
+
+N=\$SLURM_JOB_NUM_NODES
+
+Ntasks=\$SLURM_NTASKS
+
+Ntasks_per_node=\$((Ntasks / N))
+
+#\$SLURM_TASKS_PER_NODE
+
+echo \"\--nbr of nodes:\" \$N
+
+echo \"\--total nbr of gpus:\" \$Ntasks
+
+echo \"\--nbr of gpus per nodes :\" \$Ntasks_per_node
+
+\# Set the environment variable EBU_USER_PREFIX
+
+export EBU_USER_PREFIX=/project/NNxxxx/EasyBuild
+
+#Load Horovod module
+
+module load Horovod/0.28.1-foss-2022a-CUDA-11.7.0-TensorFlow-2.11.0
+
+\# Run training using srun with multiple GPUs
+
+srun \--mpi=pmix python train_mnist.py
+
+The \--mpi=pmix option in the srun command specifies the PMIx (Process
+Management Interface - Exascale) designed for exascale systems. Some of
+MPIx features is to enables better resource management and improved
+performance in exascale HPC systems \[PMIx-feature\]. PMIx is an API
+standard that provides libraries and programming models access to
+commonly needed services in distributed and parallel computing systems.
+Example of such a service is exchange of network addresses to establish
+communication channels between the processes \[PMIx-doc\]. MPIx support
+should be verified.
+
+Submit the job using:
+
+sbatch mnist_slurm.sh
+
+This script distributes the training workload across 2 nodes, using 4
+GPUs per node, leveraging Horovod for distributed training. Adjust the
+parameters based on cluster configuration and workload requirements.
 
 **Performance analysis**
 
@@ -781,3 +1124,17 @@ repository*. <https://github.com/HichamAgueny/DistributedDL-Horovod>
 
 **\[EESSI-GitHub\]** *EESSI GitHub repository.*
 <https://github.com/EESSI/software-layer/tree/2023.06-software.eessi.io/easystacks/software.eessi.io/2023.06>
+
+**\[EESSI-native\]** *EESSI native installation guide.*
+<https://www.eessi.io/docs/getting_access/native_installation/>
+
+**\[EESSI-container\]** *EESSI container guide*.
+<https://www.eessi.io/docs/getting_access/eessi_container/>
+
+**\[EESSI\]** *EESSI installation guide**.***
+<https://www.eessi.io/docs/getting_access/is_eessi_accessible/>
+
+**\[MPIx-features\]** *MPIx features*. <https://pmix.github.io/features>
+
+**\[MPIx-doc\]** *MPIx documentation*.
+<https://pmix.github.io/uploads/2023/05/pmix-standard-v5.0.pdf>
