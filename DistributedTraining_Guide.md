@@ -40,13 +40,18 @@ accelerators emerged as the standard for scalable ML workloads,
 solidifying their role as the default option across all levels of
 deployment.
 
-![](media/image1.emf){width="3.2819444444444446in"
-height="2.4305555555555554in"}![](media/image2.emf){width="3.2875in"
-height="2.44375in"}
+<p float="left" style="text-align: center; width: 100%;">
 
-***Fig. 1**: From \[Ben-Num2019\] Reported experiments per year
-categorized by **(a)** Hardware architectures and **(b)** memory
-architecture (i.e. shared vs distributed).*
+  <img src="media/fig1a.png" width="45%" height="350px" style="margin-right: 10px;" />
+  <img src="media/fig1b.png" width="45%" height="350px" style="margin-left: 10px;" />
+
+</p>
+
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig. 1</strong>: From [Ben-Num2019] Reported experiments per year categorized by 
+  <strong>(a)</strong> Hardware architectures and <strong>(b)</strong> memory architecture (i.e. shared vs distributed).
+</figcaption>
+<br><br>
 
 Despite their advantage, multi-GPU scaling of training across multiple
 nodes introduces significant challenges--- particularly communication
@@ -67,11 +72,16 @@ the training dataset as presented in **Fig. 2(b)**. This is similar to
 training on a single worker (cf. **Fig. 2(c)**), but each worker
 operates on different set of data.
 
-![](media/image3.emf){width="6.331136264216973in"
-height="3.1049628171478565in"}
+<p align="center">
+  <img src="media/fig2.png" width="700" height="450">
+</p>
 
-***Fig. 2**: Parallelism schemes: (a) Model parallelism and (b) Data
-parallelism. (c) refers to a sequential scheme*
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig. 2</strong>: Parallelism schemes:
+  <strong>(a)</strong> Model parallelism and <strong>(b)</strong> Data
+  parallelism. <strong>(c)</strong> refers to a sequential scheme.
+</figcaption>
+<br><br>
 
 While both model and data parallelism are viable strategies for scaling
 large deep learning workloads, data parallelism has gained wider
@@ -156,11 +166,15 @@ server. With more workers, parameter servers become bottlenecks, thus
 leading to degraded efficiency. This limitation results in poor
 scalability for large-scale deployments.
 
-![](media/image4.emf){width="3.177719816272966in"
-height="3.2729494750656167in"}
+<p align="center">
+  <img src="media/fig3.png" width="800" height="500">
+</p>
 
-***Fig. 3**. Adapted from \[Li2014,Teo2007\]. Workflow of Distributed
-Subgradient Descent in Parameter Server Architecture.*
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig. 3</strong>: Adapted from [Li2014,Teo2007]. Workflow of Distributed
+Subgradient Descent in Parameter Server Architecture.
+</figcaption>
+<br><br>
 
 ***Decentralized* Distributed DNN Training**
 
@@ -189,15 +203,17 @@ architecture operates through the following basic workflow:
     - *No* weight exchange occurs between workers---only gradients (or
       subgradients) are shared.
 
-![](media/image5.emf){width="3.1645702099737534in"
-height="2.71077646544182in"}
-![](media/image6.emf){width="1.6530304024496938in"
-height="1.2055402449693788in"}
+<p align="center">
+  <img src="media/fig4.png" width="800" height="500">
+</p>
 
-***Fig. 4**. Architecture of decentralized distributed training in a
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig. 4</strong>: Architecture of decentralized distributed training in a
 Ring topology. The inset figure is taken from \[Langer2020\]: neural
 network architecture with multiple layers, illustrating the flow of
-gradients during backpropagation.*
+gradients during backpropagation.
+</figcaption>
+<br><br>
 
 The concept of data parallelism---encompassing both centralized and
 decentralized architectures---is implemented in various machine learning
@@ -322,11 +338,15 @@ The core concept of Horovod is inspired by the following points:
 > exceptional communication efficiency by minimizing latency - a
 > critical factor for scalable distributed training.
 
-![](media/image7.emf){width="5.330555555555556in"
-height="2.3777777777777778in"}
+<p align="center">
+  <img src="media/fig5.png" width="750" height="450">
+</p>
 
-***Fig. 5**. Diagram of ring-allreduce algorithm designed for gradient
-synchorinization. Figure taken from \[Sergeev2018\].*
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig. 5</strong>:  Diagram of ring-allreduce algorithm designed for gradient
+synchorinization. Figure taken from \[Sergeev2018\].
+</figcaption>
+<br><br>
 
 **Implementation of Horovod with TensorFlow**
 
@@ -381,11 +401,15 @@ An increase in learning rate compensates the increased batch size.
 
 **checkpoint.save() when hvd.rank() == 0**
 
-![](media/image8.emf){width="3.9411734470691164in"
-height="1.8299015748031495in"}
+<p align="center">
+  <img src="media/fig6.png" width="700" height="400">
+</p>
 
-***Fig. 6**. Schematic representation of assigning each local process
-(cpu-core) to a specific GPU within a node.*
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig.6</strong>:  Schematic representation of assigning each local process
+(cpu-core) to a specific GPU within a node.
+</figcaption>
+<br><br>
 
 **Horovod timeline for Profiling**
 
@@ -406,9 +430,14 @@ An example of Horovod timeline profile, which captures detailed
 performance metrics from a distributed training job is shown in **Fig.
 7**.
 
-![A screenshot of a computer Description automatically
-generated](media/image9.png){width="6.5in"
-height="3.0430555555555556in"}
+<p align="center">
+  <img src="media/fig7.png" width="900" height="500">
+</p>
+
+<figcaption style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <strong>Fig.7</strong>: Horovod profiler recording timeline of operations.
+</figcaption>
+<br><br>
 
 **Application: MNIST dataset training**
 
