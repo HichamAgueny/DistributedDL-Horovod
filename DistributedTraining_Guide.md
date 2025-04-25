@@ -773,6 +773,8 @@ for more details).
 
 **Setup EESSI Container:** Step-by-Step Installation Guide
 
+The following steps assume a Linux-based system.
+
 **Step 1: Clone the Repository**
 
 First, clone the `EESSI/software-layer` repository and navigate into the
@@ -818,12 +820,12 @@ CernVM-FS: loading Fuse module\... done
 Apptainer\>
 ```
 
-#### **Step 3: Activate CernVM-FS**
+#### **Step 3: Initialize EESSI**
 
 #### Initialize the Cern Virtual Machine File System (CernVM-FS) environment \[CernVM-doc\]:
 
 ```
-source /cvmfs/software.eessi.io/versions/2023.06/init/lmod/bash
+source /cvmfs/software.eessi.io/versions/2023.06/init/bash
 ```
 
 #### 
@@ -832,14 +834,16 @@ source /cvmfs/software.eessi.io/versions/2023.06/init/lmod/bash
 
 #### Load the required Horovod module e.g.:
 
-```
-module load Horovod/0.28.1-foss-2022a-CUDA-11.7.0-TensorFlow-2.11.0
-```
-
 To check for available Horovod versions, use:
 
 ```
 module spider Horovod
+```
+
+One can load the last available version:
+
+```
+module load Horovod/0.28.1-foss-2022a-CUDA-11.7.0-TensorFlow-2.11.0
 ```
 
 ### Optimizing Container Usage and File Access
