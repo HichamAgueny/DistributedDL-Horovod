@@ -236,6 +236,7 @@ capabilities.
 | PyTorch-DDP       | Model + Data       | Synchronous                |
 | DeepSpeed         | Model + Data       | Synchronous                |
 
+**Table 1**: Summary of Parallelism and Communication Strategies in ML Frameworks from [Aach2023] (see also [Li2020, Rasely2020]).
 
 Choosing the right DL framework for implementing a distributed training
 strategy is not trivial. Generally, the selection is based on the
@@ -479,8 +480,6 @@ def train_hvd(learning_rate, batch_size, epochs):
     # Assign each GPU to each local rank
     if gpus:
         tf.config.experimental.set_visible_devices(gpus[hvd.local_rank()], 'GPU')
-      </pre>
-    </td>
   </tr>
 </table>
 
@@ -513,8 +512,7 @@ def train_hvd(learning_rate, batch_size, epochs):
     # Prepare dataset
     # The data is partitioned according to the number of processes
     (x_train, y_train), (x_test, y_test) = get_dataset(hvd.rank(), hvd.size())
-    train_data = train_data.shard(num_shards=hvd.size(),    
-                                  index=hvd.rank())
+    train_data = train_data.shard(num_shards=hvd.size(),index=hvd.rank()) 
       </pre>
     </td>
   </tr>
